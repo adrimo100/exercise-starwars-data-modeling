@@ -20,7 +20,7 @@ class Character(Base):
     skin_color = Column(String(10))
     height = Column(Float, nullable = False)
     natal_planet = Column(Integer, ForeignKey("planet.id"), nullable = False )
-    favourite_id = Column(Integer, ForeignKey("favourite.id"))
+    
 
     
 
@@ -36,7 +36,7 @@ class Planet(Base):
     orbital_period = Column(Integer)
     rotation_period = Column(Integer)
     diameter = Column(Integer, nullable = False)
-    favourite_id = Column(Integer, ForeignKey("favourite.id"))
+    
 
 
      
@@ -52,15 +52,31 @@ class Ship(Base):
     void_speed = Column(Float)
     hyperspace_class = Column(Float)
     pilot = Column(Float, ForeignKey("character.id"))
-    favourite_id = Column(Integer, ForeignKey("favourite.id"))
+    
 
 
-class Favourite(Base):
+class Favourite_Character(Base):
 
-    __tablename__ = "favourite"
+    __tablename__ = "favourite_character"
 
     id = Column(Integer, primary_key = True)
-    name = Column(String(20), unique = True, nullable=False)
+    character_id = Column(Integer, ForeignKey("character.id"), nullable = False)
+    user_id = Column(Integer, ForeignKey("user.id"), nullable = False)
+
+class Favourite_Ship(Base):
+
+    __tablename__ = "favourite_ship"
+
+    id = Column(Integer, primary_key = True)
+    ship_id = Column(Integer, ForeignKey("ship.id"), nullable = False)
+    user_id = Column(Integer, ForeignKey("user.id"), nullable = False)
+
+class Favourite_Planet(Base):
+
+    __tablename__ = "favourite_planet"
+
+    id = Column(Integer, primary_key = True)
+    planet_id = Column(Integer, ForeignKey("planet.id"), nullable = False)
     user_id = Column(Integer, ForeignKey("user.id"), nullable = False)
 
 
